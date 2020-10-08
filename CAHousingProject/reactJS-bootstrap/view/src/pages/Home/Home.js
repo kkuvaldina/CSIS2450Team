@@ -20,10 +20,6 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            key: "home",//Default Tab that acts as a Cover-Page.
-        }
-
     }
 
     render() {
@@ -43,7 +39,7 @@ class Home extends Component {
                         <Card.Body>
                             <Row>
                                 <Col>
-                                    <HousingDataRecordsElement housingDataRecords={this.props.housingDataRecords} />
+                                    <HousingDataRecordsElement housingDataRecords={this.props.housingDataRecords.housingData.data} />
                                 </Col>
                             </Row>
                         </Card.Body>

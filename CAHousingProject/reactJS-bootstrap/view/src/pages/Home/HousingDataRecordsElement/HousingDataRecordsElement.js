@@ -21,7 +21,7 @@ class HousingDataRecordsElement extends Component {
                     {records && records.length
                         ? records.map((record, index) => {
                             return <HousingDataRecordRowElement key={record.id} record={record} />;
-                        }) : <tr><td>No Records Found or...</td><td>No Records at all or...</td><td>Codeflow is broken...</td><td>Try Adding a Record...</td></tr>
+                        }) : <tr><td>No Records Found</td></tr>
                     }
                 </tbody>
             </Table>

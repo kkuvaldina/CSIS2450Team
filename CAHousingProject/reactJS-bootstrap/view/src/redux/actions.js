@@ -1,12 +1,12 @@
 ﻿import {
-    FETCH_HOUSINGDATA, SET_FILTER,//
-    ADD_USER
+    FETCH_HOUSINGDATA, SET_FILTER,
+    /*ADD_USER*/
 } from "./actionTypes";
 
 import axios from "axios";
 
 let idCount = 0;
-
+/*
 export const addUser = (email) => {
     return function (dispatch) {
         const userObject = {
@@ -26,6 +26,7 @@ export const addUserToState = (data) => ({
     type: ADD_USER,
     payload: data
 });
+*/
 
 //Fetch User API for User List on the Admin Page.
 export const fetchHousingData = () => {
@@ -33,7 +34,6 @@ export const fetchHousingData = () => {
         return axios.get('https://localhost:44382/api/housingdataobjects').then(({ data }) => {
             dispatch(setHousingDataToReduxState(data))
             idCount = data.length;
-            console.log(idCount);
         });
     }
 }

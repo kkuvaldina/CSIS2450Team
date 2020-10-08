@@ -12,15 +12,14 @@ export const getHousingDataRecords = store =>
     getHousingDataRecordsIds(store).map(id => getHousingDataRecordsById(store, id));
 
 export const getHousingDataRecordsByVisibilityFilter = (store, visibilityFilter) => {
-    /* Issue lies here 
-    const allHousingDataRecords = store.HousingDataRecords.data;
+    //console.log(store);
+    const allHousingDataRecords = store;
     switch (visibilityFilter) {
         case VISIBILITY_FILTERS.ADMIN:
-            return allHousingDataRecords.filter(housingDataRecord => housingDataRecord.admin);
+            //return allHousingDataRecords.filter(housingDataRecord => housingDataRecord.admin);
         case VISIBILITY_FILTERS.USER:
-            return allHousingDataRecords.filter(housingDataRecord => housingDataRecord.user);
+            //return allHousingDataRecords.filter(housingDataRecord => housingDataRecord.user);
         default:
             return allHousingDataRecords;
     }
-    */
 };

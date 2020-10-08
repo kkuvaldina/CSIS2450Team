@@ -1,5 +1,5 @@
 ﻿import {
-    ADD_USER, FETCH_HOUSINGDATA
+    FETCH_HOUSINGDATA, /*ADD_USER*/
 } from "../../actionTypes";
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        /* In case we wish to add a record, here's a similar example...
         case ADD_USER: {
             const { id, email, admin, active } = action.payload;
             return {
@@ -24,28 +25,21 @@ export default function (state = initialState, action) {
                 }
             }
         }
+        */
         case FETCH_HOUSINGDATA: {
-            console.log(action.payload.length);
-            
             let ids = [];
             let data = [];
             for (let i = 0; i <= action.payload.length - 1; i++) {
                 ids.push(action.payload[i].id);
                 data.push(action.payload[i]);
             }
-            console.log(state);
-            console.log(ids);
-            console.log(data);
             return {
                 ...state,
                 ids: ids,
                 data: data
             }
-            console.log(state);
-            console.log(ids);
-            console.log(data);
         }
         default:
             return state;
-    }
+    }//Switch
 }
