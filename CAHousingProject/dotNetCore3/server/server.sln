@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "server", "server\server.csproj", "{8EB07A73-49DF-4A5B-92B7-82826B75F9B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "reactjs-bootstrap", "..\..\reactJS-bootstrap\reactjs-bootstrap.csproj", "{6D8C8876-75A8-403F-B2E3-ADA19BC84166}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EB07A73-49DF-4A5B-92B7-82826B75F9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EB07A73-49DF-4A5B-92B7-82826B75F9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EB07A73-49DF-4A5B-92B7-82826B75F9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EB07A73-49DF-4A5B-92B7-82826B75F9B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D8C8876-75A8-403F-B2E3-ADA19BC84166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D8C8876-75A8-403F-B2E3-ADA19BC84166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D8C8876-75A8-403F-B2E3-ADA19BC84166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D8C8876-75A8-403F-B2E3-ADA19BC84166}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1AC504F-2211-488F-8E89-1B1DAF5F0417}
+	EndGlobalSection
+EndGlobal
