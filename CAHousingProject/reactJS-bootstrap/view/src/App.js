@@ -6,6 +6,7 @@ import { connect } from "react-redux";//Redux Store Connection
 import { Container } from "react-bootstrap";
 //Web-App Pages
 import Home from './pages/Home/Home';
+import CSV from './pages/CSV/CSV';
 
 import logo from './logo.svg';
 import './index.css';
@@ -25,6 +26,7 @@ class App extends Component {
                 <Router>
                     <Route exact path="/" component={Home} />
                     <Route path="/Home" component={Home} />
+                    <Route path="/CSV" component={CSV} />
                 </Router>
             </Container>
         )

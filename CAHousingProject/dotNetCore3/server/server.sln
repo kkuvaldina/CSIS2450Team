@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "server", "server\server.csproj", "{8EB07A73-49DF-4A5B-92B7-82826B75F9B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "server-database", "server\server-database.csproj", "{8EB07A73-49DF-4A5B-92B7-82826B75F9B1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "reactjs-bootstrap", "..\..\reactJS-bootstrap\reactjs-bootstrap.csproj", "{6D8C8876-75A8-403F-B2E3-ADA19BC84166}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "server-csvfile", "..\server-csvfile\server-csvfile\server-csvfile\server-csvfile.csproj", "{073F55E6-9015-49B4-AF92-479ECE977576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6D8C8876-75A8-403F-B2E3-ADA19BC84166}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D8C8876-75A8-403F-B2E3-ADA19BC84166}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D8C8876-75A8-403F-B2E3-ADA19BC84166}.Release|Any CPU.Build.0 = Release|Any CPU
+		{073F55E6-9015-49B4-AF92-479ECE977576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{073F55E6-9015-49B4-AF92-479ECE977576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{073F55E6-9015-49B4-AF92-479ECE977576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{073F55E6-9015-49B4-AF92-479ECE977576}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

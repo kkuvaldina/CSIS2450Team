@@ -27,7 +27,7 @@ namespace reactjs_bootstrap
             }
 
             app.UseRouting();
-
+            /*
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/", async context =>
@@ -35,6 +35,7 @@ namespace reactjs_bootstrap
                     await context.Response.WriteAsync("Hello World!");
                 });
             });
+            */
         }
     }
 }
