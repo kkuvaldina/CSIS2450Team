@@ -11,9 +11,6 @@ class NavBar extends Component {
                     <Nav className="mr-auto">
                         <Nav.Link href="/home">Home</Nav.Link>
                     </Nav>
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/csv">CSV Uploader</Nav.Link>
-                    </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                         <Button variant="outline-success">Search</Button>

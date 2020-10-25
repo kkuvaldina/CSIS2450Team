@@ -1,14 +1,17 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card } from 'react-bootstrap';
-import CsvParse from '@vtex/react-csv-parse';//https://github.com/vtex/react-csv-parse/blob/master/demo/src/index.js
 //Redux Store Connector
 import { connect } from "react-redux";
+/*
+import { Row, Col, Card } from 'react-bootstrap';
+import CsvParse from '@vtex/react-csv-parse';//https://github.com/vtex/react-csv-parse/blob/master/demo/src/index.js
+
 //Page Components
 import HousingDataTable from "./HousingDataTable/HousingDataTable";
 //Redux Store Components
 import { getHousingDataRecordsByVisibilityFilter } from "../../redux/selectors";
 import { fetchHousingData } from "../../redux/actions";
+*/
 /*
 //Web-App Icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +21,7 @@ import { faList } from "@fortawesome/free-solid-svg-icons";
 */
 
 class CSV extends Component {
-
+    /*
     constructor(props) {
         super(props);
 
@@ -37,6 +40,7 @@ class CSV extends Component {
     }
 
     render() {
+        //User May be able to change these for future CSV files with specific column names...
         const keys = [
             'longitude',
             'latitude',
@@ -88,6 +92,7 @@ class CSV extends Component {
             </Row>
         )
     }
+    */
 }
 
 const mapStateToProps = state => {

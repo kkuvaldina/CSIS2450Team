@@ -9,7 +9,7 @@ class HousingDataRecordsElement extends Component {
     }
 
     render() {
-        const records = this.props.housingDataRecords;
+        const records = this.props.housingData;
         return (
             <Table striped bordered hover size="sm" className="mt-5">
                 <thead>
