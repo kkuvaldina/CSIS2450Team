@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Tab, Tabs } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //CSV Upload Dependancy
@@ -23,7 +23,15 @@ import CsvParse from '@vtex/react-csv-parse';//https://github.com/vtex/react-csv
 //Redux Store Components
 //import { getHousingDataRecordsByVisibilityFilter } from "../../redux/selectors"; If we choose Database Route.
 
+import CountDataTable from "./CountDataTable/CountDataTable";
+import HalfDataTable from "./HalfDataTable/HalfDataTable";
 import HousingDataTable from "./HousingDataTable/HousingDataTable";
+import MaxDataTable from "./MaxDataTable/MaxDataTable";
+import MeanDataTable from "./MeanDataTable/MeanDataTable";
+import MinDataTable from "./MinDataTable/MinDataTable";
+import QuarterDataTable from "./QuarterDataTable/QuarterDataTable";
+import STDDataTable from "./STDDataTable/STDDataTable";
+import ThreeQuarterDataTable from "./ThreeQuarterDataTable/ThreeQuarterDataTable";
 
 /*
 //Web-App Icon
@@ -79,16 +87,50 @@ class Home extends Component {
                 <Col>
                     <h1 className="text-center mb-5">Application</h1>
                     <Card className="w-50 mx-auto mt-5">
-                        <Card.Body>
-                            <CsvParse
-                                keys={keys}
-                                onDataUploaded={this.handleData}
-                                onError={this.handleError}
-                                render={onChange => <input type="file" onChange={onChange} />}
-                            />
+                        <Card.Body>                            
                             <Row>
                                 <Col>
-                                    <HousingDataTable housingData={this.state.data} />
+                                    <Tabs defaultActiveKey="upload" id="uncontrolled-tab-example">
+                                        <Tab eventKey="upload" title="Upload CSV">
+                                            <Row className="mt-5">
+                                                <Col>
+                                                    <CsvParse
+                                                        keys={keys}
+                                                        onDataUploaded={this.handleData}
+                                                        onError={this.handleError}
+                                                        render={onChange => <input type="file" onChange={onChange} />}
+                                                    />
+                                                </Col>
+                                            </Row>                                            
+                                        </Tab>
+                                        <Tab eventKey="all-data" title="Uploaded Data">
+                                            <HousingDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="count-data" title="Count">
+                                            <CountDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="mean-data" title="Mean">
+                                            <MeanDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="std-data" title="STD">
+                                            <STDDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="min-data" title="MIN">
+                                            <MinDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="quarter-data" title="25%">
+                                            <QuarterDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="half-data" title="50%">
+                                            <HalfDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="three-quarter-data" title="75%">
+                                            <ThreeQuarterDataTable housingData={this.state.data} />
+                                        </Tab>
+                                        <Tab eventKey="max-data" title="Max">
+                                            <MaxDataTable housingData={this.state.data} />
+                                        </Tab>
+                                    </Tabs>                                    
                                 </Col>
                             </Row>
                         </Card.Body>

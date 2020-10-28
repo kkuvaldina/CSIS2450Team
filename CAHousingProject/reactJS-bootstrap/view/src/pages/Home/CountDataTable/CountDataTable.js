@@ -4,10 +4,10 @@ import { Row, Col, Card, Table } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //Page Components
-import HousingDataRecord from "./HousingDataRecord/HousingDataRecord";
+import CountDataRecord from "./CountDataRecord/CountDataRecord";
 
 
-class HousingDataTable extends Component {
+class CountDataTable extends Component {
 
     constructor(props) {
         super(props);
@@ -35,8 +35,8 @@ class HousingDataTable extends Component {
                 <tbody>
                     {records && records.length
                         ? records.map((record, index) => {
-                            return <HousingDataRecord key={record.id} record={record} />;
-                        }) : <tr><td>No Records Found</td></tr>
+                            return <CountDataRecord key={record.id} record={record} />;
+                        }) : <tr><td>No File Was Uploaded</td></tr>
                     }
                 </tbody>
             </Table>
@@ -44,4 +44,4 @@ class HousingDataTable extends Component {
     }
 }
 
-export default connect(null)(HousingDataTable);
+export default connect(null)(CountDataTable);
