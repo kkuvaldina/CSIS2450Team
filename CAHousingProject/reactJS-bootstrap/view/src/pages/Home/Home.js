@@ -100,35 +100,33 @@ class Home extends Component {
                                                         onError={this.handleError}
                                                         render={onChange => <input type="file" onChange={onChange} />}
                                                     />
+                                                    <HousingDataTable housingData={this.state.data} />
                                                 </Col>
                                             </Row>                                            
-                                        </Tab>
-                                        <Tab eventKey="all-data" title="Uploaded Data">
-                                            <HousingDataTable housingData={this.state.data} />
                                         </Tab>
                                         <Tab eventKey="count-data" title="Count">
                                             <CountDataTable housingData={this.state.data} />
                                         </Tab>
                                         <Tab eventKey="mean-data" title="Mean">
-                                            <MeanDataTable housingData={this.state.data} />
+                                            
                                         </Tab>
                                         <Tab eventKey="std-data" title="STD">
-                                            <STDDataTable housingData={this.state.data} />
+                                            
                                         </Tab>
                                         <Tab eventKey="min-data" title="MIN">
-                                            <MinDataTable housingData={this.state.data} />
+                                            
                                         </Tab>
                                         <Tab eventKey="quarter-data" title="25%">
-                                            <QuarterDataTable housingData={this.state.data} />
+                                            
                                         </Tab>
                                         <Tab eventKey="half-data" title="50%">
-                                            <HalfDataTable housingData={this.state.data} />
+                                            
                                         </Tab>
                                         <Tab eventKey="three-quarter-data" title="75%">
-                                            <ThreeQuarterDataTable housingData={this.state.data} />
+                                            
                                         </Tab>
                                         <Tab eventKey="max-data" title="Max">
-                                            <MaxDataTable housingData={this.state.data} />
+                                            
                                         </Tab>
                                     </Tabs>                                    
                                 </Col>
