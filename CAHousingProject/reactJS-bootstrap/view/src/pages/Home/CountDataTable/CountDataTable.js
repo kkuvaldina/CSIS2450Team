@@ -25,6 +25,13 @@ class CountDataTable extends Component {
         }
     }
 
+    countRecords = () => {
+        if (this.props.housingData != null) {
+            return Object.keys(this.props.housingData).length;
+        }
+        return null
+    }
+
     ageSum = () => {
         if (this.props.housingData != null) {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
@@ -38,7 +45,11 @@ class CountDataTable extends Component {
     bedsSum = () => {
         if (this.props.housingData != null) {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
-                this.state.bedsTotal += parseFloat(this.props.housingData[i].total_bedrooms);
+                if (this.props.housingData[i].total_bedrooms == "") {
+                    this.state.bedsTotal += 0.0
+                } else {
+                    this.state.bedsTotal += parseFloat(this.props.housingData[i].total_bedrooms);
+                }
             }
             return this.state.bedsTotal;
         }
@@ -56,11 +67,10 @@ class CountDataTable extends Component {
     }
 
     incomeSum = () => {        
-        if (this.props.housingData != null) {
-            console.log(this.props.housingData[0].median_income);
+        if (this.props.housingData != null) {            
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.incomeTotal += parseFloat(this.props.housingData[i].median_income);
-            }
+            }            
             return this.state.incomeTotal;
         }
         return null;
@@ -71,7 +81,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.latitudeTotal += parseFloat(this.props.housingData[i].latitude);
             }
-            return this.state.latitudeTotal;
+            return this.state.latitudeTotal.toFixed(2);
         }
         return null;
     }
@@ -81,7 +91,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.longitudeTotal += parseFloat(this.props.housingData[i].longitude);
             }
-            return this.state.longitudeTotal;
+            return this.state.longitudeTotal.toFixed(2);
         }
         return null;
     }
@@ -111,33 +121,19 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.valueTotal += parseFloat(this.props.housingData[i].median_house_value);
             }
-            return this.state.valueTotal;
+            return this.state.valueTotal.toFixed(2);
         }
         return null;
     }
 
 
     render() {
-        const records = this.props.housingData;
-
-        if (records != null) {
-            //Start the Sum and Total for the Columns in the CSV.
-            this.ageSum();
-            this.populationSum();
-            this.valueSum();
-            this.incomeSum();
-            this.holdsSum();
-            this.bedsSum();
-            this.roomsSum();
-            this.longitudeSum();
-            this.latitudeSum();            
-        }
-                
         //...
         return (
             <Table striped bordered hover size="sm" className="mt-5">
                 <thead>
                     <tr>
+                        <th>Total Records</th>
                         <th>Longitude</th>
                         <th>Latitude</th>
                         <th>Age</th>
@@ -147,20 +143,20 @@ class CountDataTable extends Component {
                         <th>Income</th>
                         <th>Value</th>
                         <th>Population</th>
-                        <th>Ocean Prox</th>
                     </tr>
                 </thead>
                 <tbody>
                     <CountDataRecord
-                        longitude={this.state.longitudeTotal}
-                        latitude={this.state.latitudeTotal}
-                        age={this.state.ageTotal}
-                        rooms={this.state.roomsTotal}
-                        bedrooms={this.state.bedsTotal}
-                        holds={this.state.holdsTotal}
-                        income={this.state.incomeTotal}
-                        value={this.state.valueTotal}
-                        population={this.state.populationTotal}
+                        count={this.countRecords()}
+                        longitude={this.longitudeSum()}
+                        latitude={this.latitudeSum()}
+                        age={this.ageSum()}
+                        rooms={this.roomsSum()}
+                        bedrooms={this.bedsSum()}
+                        holds={this.holdsSum()}
+                        income={this.incomeSum()}
+                        value={this.valueSum()}
+                        population={this.populationSum()}
                     />
                 </tbody>
             </Table>

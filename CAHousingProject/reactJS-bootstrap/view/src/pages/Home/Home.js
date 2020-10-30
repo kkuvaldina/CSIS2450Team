@@ -61,7 +61,7 @@ class Home extends Component {
     }
 
     render() {
-        //this.props.fetchHousingData();//This fetches HousingData consistently and only applied on the Home Page.
+        //this.props.fetchHousingData();//Redux Call to Our DataBase.
         const keys = [
             'longitude',
             'latitude',
@@ -114,7 +114,7 @@ class Home extends Component {
                                             
                                         </Tab>
                                         <Tab eventKey="min-data" title="MIN">
-                                            
+                                            <MinDataTable housingData={this.state.data} />
                                         </Tab>
                                         <Tab eventKey="quarter-data" title="25%">
                                             
@@ -126,7 +126,7 @@ class Home extends Component {
                                             
                                         </Tab>
                                         <Tab eventKey="max-data" title="Max">
-                                            
+                                            <MaxDataTable housingData={this.state.data} />
                                         </Tab>
                                     </Tabs>                                    
                                 </Col>
@@ -148,15 +148,15 @@ class Home extends Component {
     }
 }
 
+/*
 const mapStateToProps = state => {
-    /*
     const { visibilityFilter } = state;
     const housingDataRecords = getHousingDataRecordsByVisibilityFilter(state, visibilityFilter);
-    return { housingDataRecords };
-    */
+    return { housingDataRecords };    
 };
+*/
 
 export default connect(
-    mapStateToProps,
+    null,
     //{ fetchHousingData }
 )(Home);

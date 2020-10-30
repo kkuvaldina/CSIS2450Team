@@ -1,8 +1,11 @@
 ﻿import React from "react";
 import { connect } from "react-redux";
 
-const CountDataRecord = ({ longitude, age, rooms, bedrooms, population, households, income, value, latitude }) => (
+const CountDataRecord = ({ longitude, age, rooms, bedrooms, population, holds, income, value, latitude, count }) => (
     <tr>
+        <td>
+            {count}
+        </td>
         <td>
             {longitude}
         </td>
@@ -19,10 +22,7 @@ const CountDataRecord = ({ longitude, age, rooms, bedrooms, population, househol
             {bedrooms}
         </td>
         <td>
-            {population}
-        </td>
-        <td>
-            {households}
+            {holds}
         </td>
         <td>
             {income}
@@ -31,7 +31,7 @@ const CountDataRecord = ({ longitude, age, rooms, bedrooms, population, househol
             {value}
         </td>
         <td>
-            null
+            {population}
         </td>
     </tr>
 );
