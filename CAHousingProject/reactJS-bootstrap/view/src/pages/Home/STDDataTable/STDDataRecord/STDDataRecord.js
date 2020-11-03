@@ -1,37 +1,34 @@
 ﻿import React from "react";
 import { connect } from "react-redux";
 
-const STDDataRecord = ({ record }) => (
+const STDDataRecord = ({ longitude, age, rooms, bedrooms, population, holds, income, value, latitude }) => (
     <tr>
         <td>
-            {record.longitude}
+            {longitude}
         </td>
         <td>
-            {record.latitude}
+            {latitude}
         </td>
         <td>
-            {record.housing_median_age}
+            {age}
         </td>
         <td>
-            {record.total_rooms}
+            {rooms}
         </td>
         <td>
-            {record.total_bedrooms}
+            {bedrooms}
         </td>
         <td>
-            {record.population}
+            {holds}
         </td>
         <td>
-            {record.households}
+            {income}
         </td>
         <td>
-            {record.median_income}
+            {value}
         </td>
         <td>
-            {record.median_house_value}
-        </td>
-        <td>
-            {record.ocean_proximity}
+            {population}
         </td>
     </tr>
 );

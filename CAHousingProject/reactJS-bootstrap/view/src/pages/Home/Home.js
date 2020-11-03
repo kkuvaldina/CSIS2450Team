@@ -108,10 +108,10 @@ class Home extends Component {
                                             <CountDataTable housingData={this.state.data} />
                                         </Tab>
                                         <Tab eventKey="mean-data" title="Mean">
-                                            
+                                            <MeanDataTable housingData={this.state.data} />
                                         </Tab>
                                         <Tab eventKey="std-data" title="STD">
-                                            
+                                            <STDDataTable housingData={this.state.data} />
                                         </Tab>
                                         <Tab eventKey="min-data" title="MIN">
                                             <MinDataTable housingData={this.state.data} />
