@@ -1,8 +1,11 @@
 ﻿import React from "react";
 import { connect } from "react-redux";
 
-const HousingDataRecord = ({ record }) => (
+const HousingDataRecord = ({ record, index }) => (
     <tr>
+        <td>
+            {index}
+        </td>
         <td>
             {record.longitude}
         </td>

@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card, Tab, Tabs, Alert, Spinner } from 'react-bootstrap';
+import { Row, Col, Card, Tab, Tabs, Alert, Spinner, Button } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //CSV Upload Dependancy
@@ -34,12 +34,13 @@ class Home extends Component {
             data: null,
             countRecords: null,
             error: null,
-            loading: false,
+            loading: null,
+            unloaded: null,
         }
     }
 
     handleData = data => {
-        this.setState({ loading: true })
+        this.setState({ loading: true, unloaded: false })
         setTimeout(() => {
             this.setState({ data, countRecords: Object.keys(data).length, loading: false })
         }, 1000)
@@ -47,6 +48,14 @@ class Home extends Component {
 
     handleError = error => {
         this.setState({ error, loading: false })
+    }
+
+    unloadCSV = () => {
+        this.setState({ loading: true })
+        setTimeout(() => {
+            this.setState({ data: null, error: null, countRecords: null, loading: false, unloaded: true })
+        }, 5000)
+        document.getElementById("csv-parse").value = "";
     }
     
     render() {
@@ -73,14 +82,14 @@ class Home extends Component {
                         <Card.Body>                            
                             <Row>
                                 <Col>
-                                    <Tabs defaultActiveKey="upload" id="uncontrolled-tab-example">
+                                    <Tabs defaultActiveKey="upload">
                                         <Tab eventKey="upload" title="Upload CSV">
                                             <Row className="mt-5">
                                                 <Col>
                                                     <Row>
                                                         <Col xs md lg="1">
                                                             {this.state.loading ?
-                                                                <Spinner animation="border" role="status" variant="primary" classNam="mt-5">
+                                                                <Spinner animation="border" role="status" variant="primary" className="mt-5">
                                                                     <span className="sr-only">Loading...</span>
                                                                 </Spinner> :
                                                                 null
@@ -88,16 +97,33 @@ class Home extends Component {
                                                         </Col>
                                                         <Col xs md lg="4">
                                                             <CsvParse
-                                                            keys={keys}
-                                                            onDataUploaded={this.handleData}
-                                                            onError={this.handleError}
-                                                            render={onChange => <input type="file" onChange={onChange} />
-                                                            } />
+                                                                keys={keys}
+                                                                onDataUploaded={this.handleData}
+                                                                onError={this.handleError}
+                                                                    render={onChange => <input id="csv-parse" type="file"
+                                                                        accept=".csv"
+                                                                        pattern="^.+\.(xlsx|xls|csv)$"
+                                                                        onChange={onChange}
+                                                                />}                                                                
+                                                            />
+                                                            {this.state.countRecords && (
+                                                                <Button variant="danger" size="sm" className="mt-3" onClick={this.unloadCSV}>Unload CSV File</Button>
+                                                            )}
                                                         </Col>
                                                         {this.state.countRecords && (
                                                             <Col>
                                                                 <Alert variant="success">Loaded: <b>{this.state.countRecords}</b> records.</Alert>
                                                             </Col>
+                                                        )}
+                                                        {this.state.error && (
+                                                            <Col>
+                                                                <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
+                                                            </Col>
+                                                        )}
+                                                        {this.state.unloaded && (
+                                                            <Col>
+                                                                <Alert variant="success">CSV file was removed.</Alert>
+                                                            </Col>    
                                                         )}
                                                     </Row>                                                                                                        
                                                 </Col>
@@ -125,23 +151,16 @@ class Home extends Component {
                                     </Tabs>
                                 </Col>
                             </Row>
-                        </Card.Body>
-                        <Card.Footer>
-                            {this.state.countRecords && (
+                        </Card.Body>                        
+                        {this.state.countRecords && (
+                            <Card.Footer>
                                 <Row>
                                     <Col>
                                         <Alert variant="secondary" className="float-right"><b>{this.state.countRecords}</b> total records.</Alert>
                                     </Col>
-                                </Row>    
-                            )}
-                            {this.state.error && (
-                                <Row>
-                                    <Col>
-                                        <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
-                                    </Col>
                                 </Row>
-                            )}                                
-                        </Card.Footer>
+                            </Card.Footer>
+                        )}                                                                                  
                     </Card>
                 </Col>                
             </Row>

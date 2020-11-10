@@ -25,6 +25,7 @@ class HousingDataTable extends Component {
                     <Table striped bordered hover size="sm" className="mt-5">
                         <thead>
                             <tr>
+                                <th>ID#</th>
                                 <th>Longitude</th>
                                 <th>Latitude</th>
                                 <th>Age</th>
@@ -41,7 +42,7 @@ class HousingDataTable extends Component {
                             {
                                 records && records.length
                                 ? records.map((record, index) => {
-                                    return <HousingDataRecord key={record.id} record={record} />;
+                                    return <HousingDataRecord key={index} record={record} index={index} />;
                                 }) : <tr></tr>
                             }
                         </tbody>
