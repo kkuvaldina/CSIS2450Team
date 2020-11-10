@@ -4,9 +4,6 @@ import { connect } from "react-redux";
 const CountDataRecord = ({ longitude, age, rooms, bedrooms, population, holds, income, value, latitude, count }) => (
     <tr>
         <td>
-            {count}
-        </td>
-        <td>
             {longitude}
         </td>
         <td>

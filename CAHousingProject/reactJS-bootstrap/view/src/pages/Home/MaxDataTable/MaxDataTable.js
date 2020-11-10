@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card, Table } from 'react-bootstrap';
+import { Row, Col, Table } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //Page Components
@@ -31,6 +31,7 @@ class MaxDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 if (this.state.ageMax < parseFloat(this.props.housingData[i].housing_median_age)) {
                     this.state.ageMax = parseFloat(this.props.housingData[i].housing_median_age);
+                    //this.setState({ ageMax: parseFloat(this.props.housingData[i].housing_median_age)})
                 }
             }
             return this.state.ageMax;
@@ -144,35 +145,41 @@ class MaxDataTable extends Component {
 
     render() {
         //...
-        return (
-            <Table striped bordered hover size="sm" className="mt-5">
-                <thead>
-                    <tr>
-                        <th>Longitude</th>
-                        <th>Latitude</th>
-                        <th>Age</th>
-                        <th>Rooms</th>
-                        <th>Beds</th>
-                        <th>Holds</th>
-                        <th>Income</th>
-                        <th>Value</th>
-                        <th>Population</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <MaxDataRecord
-                        longitude={this.longitudeMax()}
-                        latitude={this.latitudeMax()}
-                        age={this.ageMax()}
-                        rooms={this.roomsMax()}
-                        bedrooms={this.bedsMax()}
-                        holds={this.holdsMax()}
-                        income={this.incomeMax()}
-                        value={this.valueMax()}
-                        population={this.populationMax()}
-                    />
-                </tbody>
-            </Table>
+        return (            
+            <Row>
+                <Col>
+                    <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>Longitude</th>
+                                <th>Latitude</th>
+                                <th>Age</th>
+                                <th>Rooms</th>
+                                <th>Beds</th>
+                                <th>Holds</th>
+                                <th>Income</th>
+                                <th>Value</th>
+                                <th>Population</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            {this.props.housingData && this.props.housingData.length ?
+                                <MaxDataRecord
+                                    longitude={this.longitudeMax()}
+                                    latitude={this.latitudeMax()}
+                                    age={this.ageMax()}
+                                    rooms={this.roomsMax()}
+                                    bedrooms={this.bedsMax()}
+                                    holds={this.holdsMax()}
+                                    income={this.incomeMax()}
+                                    value={this.valueMax()}
+                                    population={this.populationMax()}
+                                /> : <tr></tr>
+                            }
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>            
         )
     }
 }

@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card, Table } from 'react-bootstrap';
+import { Row, Col, Table } from 'react-bootstrap';
 //Math Library: https://mathjs.org/docs/reference/functions/std.html
 import { std } from 'mathjs'
 //Redux Store Connector
@@ -27,20 +27,13 @@ class STDDataTable extends Component {
         }
     }
 
-    countRecords = () => {
-        if (this.props.housingData != null) {
-            return Object.keys(this.props.housingData).length;
-        }
-        return null
-    }
-
     ageSTD = () => {
         if (this.props.housingData != null) {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 if (this.props.housingData[i].housing_median_age != "")
                     this.state.ageSTD.push(parseFloat(this.props.housingData[i].housing_median_age));
             }
-            return std(this.state.ageSTD, "uncorrected");
+            return std(this.state.ageSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -51,7 +44,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].total_bedrooms != "")
                     this.state.bedsSTD.push(parseFloat(this.props.housingData[i].total_bedrooms));
             }
-            return std(this.state.bedsSTD, "uncorrected");
+            return std(this.state.bedsSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -62,7 +55,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].households != "")
                     this.state.holdsSTD.push(parseFloat(this.props.housingData[i].households));
             }
-            return std(this.state.holdsSTD, "uncorrected");
+            return std(this.state.holdsSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -73,7 +66,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].median_income != "")
                     this.state.incomeSTD.push(parseFloat(this.props.housingData[i].median_income));
             }
-            return std(this.state.incomeSTD, "uncorrected");
+            return std(this.state.incomeSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -84,7 +77,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].latitude != "")
                     this.state.latitudeSTD.push(parseFloat(this.props.housingData[i].latitude));
             }
-            return std(this.state.latitudeSTD, "uncorrected");
+            return std(this.state.latitudeSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -95,7 +88,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].longitude != "")
                     this.state.longitudeSTD.push(parseFloat(this.props.housingData[i].longitude));
             }
-            return std(this.state.longitudeSTD, "uncorrected");
+            return std(this.state.longitudeSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -106,7 +99,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].population != "")
                     this.state.populationSTD.push(parseFloat(this.props.housingData[i].population));
             }
-            return std(this.state.populationSTD, "uncorrected");
+            return std(this.state.populationSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -117,7 +110,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].total_rooms != "")
                     this.state.roomsSTD.push(parseFloat(this.props.housingData[i].total_rooms));
             }
-            return std(this.state.roomsSTD, "uncorrected");
+            return std(this.state.roomsSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -128,7 +121,7 @@ class STDDataTable extends Component {
                 if (this.props.housingData[i].median_house_value != "")
                     this.state.valueSTD.push(parseFloat(this.props.housingData[i].median_house_value));
             }
-            return std(this.state.valueSTD, "uncorrected");
+            return std(this.state.valueSTD, "uncorrected").toFixed(2);
         }
         return null;
     }
@@ -136,34 +129,40 @@ class STDDataTable extends Component {
     render() {
         //...
         return (
-            <Table striped bordered hover size="sm" className="mt-5">
-                <thead>
-                    <tr>
-                        <th>Longitude</th>
-                        <th>Latitude</th>
-                        <th>Age</th>
-                        <th>Rooms</th>
-                        <th>Beds</th>
-                        <th>Holds</th>
-                        <th>Income</th>
-                        <th>Value</th>
-                        <th>Population</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <STDDataRecord
-                        longitude={this.longitudeSTD()}
-                        latitude={this.latitudeSTD()}
-                        age={this.ageSTD()}
-                        rooms={this.roomsSTD()}
-                        bedrooms={this.bedsSTD()}
-                        holds={this.holdsSTD()}
-                        income={this.incomeSTD()}
-                        value={this.valueSTD()}
-                        population={this.populationSTD()}
-                    />
-                </tbody>
-            </Table>
+            <Row>
+                <Col>
+                    <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>Longitude</th>
+                                <th>Latitude</th>
+                                <th>Age</th>
+                                <th>Rooms</th>
+                                <th>Beds</th>
+                                <th>Holds</th>
+                                <th>Income</th>
+                                <th>Value</th>
+                                <th>Population</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.housingData && this.props.housingData.length ?
+                                <STDDataRecord
+                                    longitude={this.longitudeSTD()}
+                                    latitude={this.latitudeSTD()}
+                                    age={this.ageSTD()}
+                                    rooms={this.roomsSTD()}
+                                    bedrooms={this.bedsSTD()}
+                                    holds={this.holdsSTD()}
+                                    income={this.incomeSTD()}
+                                    value={this.valueSTD()}
+                                    population={this.populationSTD()}
+                                /> : <tr></tr>
+                            }
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
         )
     }
 }

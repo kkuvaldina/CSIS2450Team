@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card, Table } from 'react-bootstrap';
+import { Row, Col, Table } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //Page Components
@@ -145,35 +145,41 @@ class MinDataTable extends Component {
     
     render() {
         //...
-        return (
-            <Table striped bordered hover size="sm" className="mt-5">
-                <thead>
-                    <tr>
-                        <th>Longitude</th>
-                        <th>Latitude</th>
-                        <th>Age</th>
-                        <th>Rooms</th>
-                        <th>Beds</th>
-                        <th>Holds</th>
-                        <th>Income</th>
-                        <th>Value</th>
-                        <th>Population</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <MinDataRecord
-                        longitude={this.longitudeMin()}
-                        latitude={this.latitudeMin()}
-                        age={this.ageMin()}
-                        rooms={this.roomsMin()}
-                        bedrooms={this.bedsMin()}
-                        holds={this.holdsMin()}
-                        income={this.incomeMin()}
-                        value={this.valueMin()}
-                        population={this.populationMin()}
-                    />
-                </tbody>
-            </Table>
+        return (            
+            <Row>
+                <Col>
+                    <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>Longitude</th>
+                                <th>Latitude</th>
+                                <th>Age</th>
+                                <th>Rooms</th>
+                                <th>Beds</th>
+                                <th>Holds</th>
+                                <th>Income</th>
+                                <th>Value</th>
+                                <th>Population</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.housingData && this.props.housingData.length ?
+                                <MinDataRecord
+                                    longitude={this.longitudeMin()}
+                                    latitude={this.latitudeMin()}
+                                    age={this.ageMin()}
+                                    rooms={this.roomsMin()}
+                                    bedrooms={this.bedsMin()}
+                                    holds={this.holdsMin()}
+                                    income={this.incomeMin()}
+                                    value={this.valueMin()}
+                                    population={this.populationMin()}
+                                /> : <tr></tr>
+                            }
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>            
         )
     }
 }

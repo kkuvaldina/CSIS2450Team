@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card, Table } from 'react-bootstrap';
+import { Row, Col, Table, Alert } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //Page Components
@@ -23,13 +23,6 @@ class CountDataTable extends Component {
             populationTotal: 0,
             OceanProxTotal: null
         }
-    }
-
-    countRecords = () => {
-        if (this.props.housingData != null) {
-            return Object.keys(this.props.housingData).length;
-        }
-        return null
     }
 
     ageSum = () => {
@@ -126,40 +119,43 @@ class CountDataTable extends Component {
         return null;
     }
 
-
     render() {
         //...
         return (
-            <Table striped bordered hover size="sm" className="mt-5">
-                <thead>
-                    <tr>
-                        <th>Total Records</th>
-                        <th>Longitude</th>
-                        <th>Latitude</th>
-                        <th>Age</th>
-                        <th>Rooms</th>
-                        <th>Beds</th>
-                        <th>Holds</th>
-                        <th>Income</th>
-                        <th>Value</th>
-                        <th>Population</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <CountDataRecord
-                        count={this.countRecords()}
-                        longitude={this.longitudeSum()}
-                        latitude={this.latitudeSum()}
-                        age={this.ageSum()}
-                        rooms={this.roomsSum()}
-                        bedrooms={this.bedsSum()}
-                        holds={this.holdsSum()}
-                        income={this.incomeSum()}
-                        value={this.valueSum()}
-                        population={this.populationSum()}
-                    />
-                </tbody>
-            </Table>
+            <Row>
+                <Col>
+                    <Table striped bordered hover size="sm">
+                        <thead>
+                            <tr>
+                                <th>Longitude</th>
+                                <th>Latitude</th>
+                                <th>Age</th>
+                                <th>Rooms</th>
+                                <th>Beds</th>
+                                <th>Holds</th>
+                                <th>Income</th>
+                                <th>Value</th>
+                                <th>Population</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.props.housingData && this.props.housingData.length ?
+                                <CountDataRecord
+                                    longitude={this.longitudeSum()}
+                                    latitude={this.latitudeSum()}
+                                    age={this.ageSum()}
+                                    rooms={this.roomsSum()}
+                                    bedrooms={this.bedsSum()}
+                                    holds={this.holdsSum()}
+                                    income={this.incomeSum()}
+                                    value={this.valueSum()}
+                                    population={this.populationSum()}
+                                /> : <tr></tr>
+                            }
+                        </tbody>                        
+                    </Table>
+                </Col>
+            </Row>            
         )
     }
 }

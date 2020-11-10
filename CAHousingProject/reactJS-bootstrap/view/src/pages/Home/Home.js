@@ -1,28 +1,17 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card, Tab, Tabs } from 'react-bootstrap';
+import { Row, Col, Card, Tab, Tabs, Alert, Spinner } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //CSV Upload Dependancy
 import CsvParse from '@vtex/react-csv-parse';//https://github.com/vtex/react-csv-parse/blob/master/demo/src/index.js
-/*
-{
-    this.state.data && (
-        <pre>{JSON.stringify(this.state.data, null, 2)}</pre>
-    )
-}
-{
-    this.state.error && (
-        <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
-    )
-}
-*/
+
 //Page Elements
 //import { fetchHousingData } from "../../redux/actions"; If we choose Database Route.
-//import HousingDataRecordsElement from './HousingDataRecordsElement/HousingDataRecordsElement'; If we choose Database Route.
 //Redux Store Components
 //import { getHousingDataRecordsByVisibilityFilter } from "../../redux/selectors"; If we choose Database Route.
 
+//CSV Page Route...
 import CountDataTable from "./CountDataTable/CountDataTable";
 import HalfDataTable from "./HalfDataTable/HalfDataTable";
 import HousingDataTable from "./HousingDataTable/HousingDataTable";
@@ -32,14 +21,9 @@ import MinDataTable from "./MinDataTable/MinDataTable";
 import QuarterDataTable from "./QuarterDataTable/QuarterDataTable";
 import STDDataTable from "./STDDataTable/STDDataTable";
 import ThreeQuarterDataTable from "./ThreeQuarterDataTable/ThreeQuarterDataTable";
-
-/*
 //Web-App Icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTable } from "@fortawesome/free-solid-svg-icons";
-import { faCompressAlt } from "@fortawesome/free-solid-svg-icons";
-import { faList } from "@fortawesome/free-solid-svg-icons";
-*/
+import { faCalculator} from "@fortawesome/free-solid-svg-icons";
 
 class Home extends Component {
 
@@ -48,18 +32,23 @@ class Home extends Component {
 
         this.state = {
             data: null,
+            countRecords: null,
             error: null,
+            loading: false,
         }
     }
 
     handleData = data => {
-        this.setState({ data })
+        this.setState({ loading: true })
+        setTimeout(() => {
+            this.setState({ data, countRecords: Object.keys(data).length, loading: false })
+        }, 1000)
     }
 
     handleError = error => {
-        this.setState({ error })
+        this.setState({ error, loading: false })
     }
-
+    
     render() {
         //this.props.fetchHousingData();//Redux Call to Our DataBase.
         const keys = [
@@ -75,18 +64,12 @@ class Home extends Component {
             'ocean_proximity'
         ];
 
-        /*
-        //Icon Elements
-        const tableIcon = <FontAwesomeIcon icon={faTable} />;
-        const accordionIcon = <FontAwesomeIcon icon={faCompressAlt} />;
-        const listIcon = <FontAwesomeIcon icon={faList} />;        
-        */
         //...
         return (            
             <Row className="mt-5">                
                 <Col>
                     <h1 className="text-center mb-5">Application</h1>
-                    <Card className="w-50 mx-auto mt-5">
+                    <Card className="w-50 mx-auto mt-5 mb-5">
                         <Card.Body>                            
                             <Row>
                                 <Col>
@@ -94,52 +77,70 @@ class Home extends Component {
                                         <Tab eventKey="upload" title="Upload CSV">
                                             <Row className="mt-5">
                                                 <Col>
-                                                    <CsvParse
-                                                        keys={keys}
-                                                        onDataUploaded={this.handleData}
-                                                        onError={this.handleError}
-                                                        render={onChange => <input type="file" onChange={onChange} />}
-                                                    />
-                                                    <HousingDataTable housingData={this.state.data} />
+                                                    <Row>
+                                                        <Col xs md lg="1">
+                                                            {this.state.loading ?
+                                                                <Spinner animation="border" role="status" variant="primary" classNam="mt-5">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </Spinner> :
+                                                                null
+                                                            }
+                                                        </Col>
+                                                        <Col xs md lg="4">
+                                                            <CsvParse
+                                                            keys={keys}
+                                                            onDataUploaded={this.handleData}
+                                                            onError={this.handleError}
+                                                            render={onChange => <input type="file" onChange={onChange} />
+                                                            } />
+                                                        </Col>
+                                                        {this.state.countRecords && (
+                                                            <Col>
+                                                                <Alert variant="success">Loaded: <b>{this.state.countRecords}</b> records.</Alert>
+                                                            </Col>
+                                                        )}
+                                                    </Row>                                                                                                        
                                                 </Col>
                                             </Row>                                            
                                         </Tab>
-                                        <Tab eventKey="count-data" title="Count">
-                                            <CountDataTable housingData={this.state.data} />
+                                        <Tab eventKey="table-data" title='Result Tables'>
+                                            <Row className="mt-5">
+                                                <Col>
+                                                    <h1><FontAwesomeIcon icon={faCalculator} /> <b>Sum</b></h1>
+                                                    <CountDataTable housingData={this.state.data} />
+                                                    <h1><FontAwesomeIcon icon={faCalculator} /> <b>Mean</b></h1>
+                                                    <MeanDataTable housingData={this.state.data} />
+                                                    <h1><FontAwesomeIcon icon={faCalculator} /> <b>STD</b></h1>
+                                                    <STDDataTable housingData={this.state.data} />
+                                                    <h1><FontAwesomeIcon icon={faCalculator} /> <b>Min</b></h1>
+                                                    <MinDataTable housingData={this.state.data} />
+                                                    <h1><FontAwesomeIcon icon={faCalculator} /> <b>Max</b></h1>
+                                                    <MaxDataTable housingData={this.state.data} />
+                                                </Col>
+                                            </Row>                                            
                                         </Tab>
-                                        <Tab eventKey="mean-data" title="Mean">
-                                            <MeanDataTable housingData={this.state.data} />
+                                        <Tab eventKey="all-data" title="Show All Data">
+                                            <HousingDataTable housingData={this.state.data} />
                                         </Tab>
-                                        <Tab eventKey="std-data" title="STD">
-                                            <STDDataTable housingData={this.state.data} />
-                                        </Tab>
-                                        <Tab eventKey="min-data" title="MIN">
-                                            <MinDataTable housingData={this.state.data} />
-                                        </Tab>
-                                        <Tab eventKey="quarter-data" title="25%">
-                                            
-                                        </Tab>
-                                        <Tab eventKey="half-data" title="50%">
-                                            
-                                        </Tab>
-                                        <Tab eventKey="three-quarter-data" title="75%">
-                                            
-                                        </Tab>
-                                        <Tab eventKey="max-data" title="Max">
-                                            <MaxDataTable housingData={this.state.data} />
-                                        </Tab>
-                                    </Tabs>                                    
+                                    </Tabs>
                                 </Col>
                             </Row>
                         </Card.Body>
                         <Card.Footer>
-                            <Row>
-                                <Col>
-                                    {this.state.error && (
+                            {this.state.countRecords && (
+                                <Row>
+                                    <Col>
+                                        <Alert variant="secondary" className="float-right"><b>{this.state.countRecords}</b> total records.</Alert>
+                                    </Col>
+                                </Row>    
+                            )}
+                            {this.state.error && (
+                                <Row>
+                                    <Col>
                                         <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
-                                    )}
-                                </Col>
-                            </Row>
+                                    </Col>
+                                </Row>
+                            )}                                
                         </Card.Footer>
                     </Card>
                 </Col>                
@@ -148,7 +149,7 @@ class Home extends Component {
     }
 }
 
-/*
+/* Database Route
 const mapStateToProps = state => {
     const { visibilityFilter } = state;
     const housingDataRecords = getHousingDataRecordsByVisibilityFilter(state, visibilityFilter);
@@ -158,5 +159,4 @@ const mapStateToProps = state => {
 
 export default connect(
     null,
-    //{ fetchHousingData }
 )(Home);
