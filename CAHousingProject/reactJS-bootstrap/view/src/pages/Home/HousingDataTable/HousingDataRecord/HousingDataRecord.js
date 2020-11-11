@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 const HousingDataRecord = ({ record, index }) => (
     <tr>
         <td>
-            {index}
+            {index.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </td>
         <td>
             {record.longitude}

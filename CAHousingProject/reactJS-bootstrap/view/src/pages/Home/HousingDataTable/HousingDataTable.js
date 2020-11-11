@@ -41,7 +41,7 @@ class HousingDataTable extends Component {
                         <tbody>
                             {
                                 records && records.length
-                                ? records.map((record, index) => {
+                                    ? records.map((record, index = 1) => {                                    
                                     return <HousingDataRecord key={index} record={record} index={index} />;
                                 }) : <tr></tr>
                             }

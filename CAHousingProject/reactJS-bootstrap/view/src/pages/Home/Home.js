@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Card, Tab, Tabs, Alert, Spinner, Button } from 'react-bootstrap';
+import { Row, Col, Card, Tab, Tabs, Alert, Spinner, Button, Jumbotron } from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //CSV Upload Dependancy
@@ -11,7 +11,7 @@ import CsvParse from '@vtex/react-csv-parse';//https://github.com/vtex/react-csv
 //Redux Store Components
 //import { getHousingDataRecordsByVisibilityFilter } from "../../redux/selectors"; If we choose Database Route.
 
-//CSV Page Route...
+//CSV Application PRoute...
 import CountDataTable from "./CountDataTable/CountDataTable";
 import HalfDataTable from "./HalfDataTable/HalfDataTable";
 import HousingDataTable from "./HousingDataTable/HousingDataTable";
@@ -21,9 +21,14 @@ import MinDataTable from "./MinDataTable/MinDataTable";
 import QuarterDataTable from "./QuarterDataTable/QuarterDataTable";
 import STDDataTable from "./STDDataTable/STDDataTable";
 import ThreeQuarterDataTable from "./ThreeQuarterDataTable/ThreeQuarterDataTable";
+
 //Web-App Icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalculator} from "@fortawesome/free-solid-svg-icons";
+import { Container } from 'react-bootstrap';
+
+//User-Alert Notification Code
+import AlertNotification from './AlertNotification';
 
 class Home extends Component {
 
@@ -36,26 +41,49 @@ class Home extends Component {
             error: null,
             loading: null,
             unloaded: null,
+            unloading: null,
+            info: null,
+            resultsDataTabBtn: true,
+            allDataTabBtn: true,
+            active: null
         }
     }
 
+    componentDidMount = () => {
+        this.setState({ info: true })
+    }
+
     handleData = data => {
-        this.setState({ loading: true, unloaded: false })
+        this.setState({ loading: true, unloaded: false, info: false })
         setTimeout(() => {
-            this.setState({ data, countRecords: Object.keys(data).length, loading: false })
+            this.setState({ data, countRecords: Object.keys(data).length, loading: false, resultsDataTabBtn: false, allDataTabBtn: false })
         }, 1000)
+        
     }
 
     handleError = error => {
         this.setState({ error, loading: false })
     }
 
-    unloadCSV = () => {
-        this.setState({ loading: true })
+    unloadCSVAlert = () => {
+        //Show the Unloading <Alert /> to the User.
         setTimeout(() => {
-            this.setState({ data: null, error: null, countRecords: null, loading: false, unloaded: true })
-        }, 5000)
-        document.getElementById("csv-parse").value = "";
+            this.setState({ unloading: true, info: null, countRecords: null, resultsDataTabBtn: true, allDataTabBtn: true })
+        }, 50)
+        //Empty any Data (records) or errors from this Component.        
+        setTimeout(() => {            
+            this.setState({ data: null, error: null })
+            document.getElementById("csv-parse").value = "";
+            this.setState({ unloading: null, unloaded: true })
+        }, 950)
+        //Switch from Unloaded to Complete.
+        setTimeout(() => {
+            this.setState({ unloaded: false })
+        }, 3000)
+        //Revert back to normal Settings.
+        setTimeout(() => {
+            this.setState({ info: true })
+        }, 3050)
     }
     
     render() {
@@ -77,59 +105,56 @@ class Home extends Component {
         return (            
             <Row className="mt-5">                
                 <Col>
-                    <h1 className="text-center mb-5">Application</h1>
-                    <Card className="w-50 mx-auto mt-5 mb-5">
-                        <Card.Body>                            
+                    <Jumbotron fluid>
+                        <Container>
+                            <h1 className="text-center mb-5">Application</h1>
+                        </Container>
+                    </Jumbotron>                    
+                    <Card className="w-50 mx-auto mt-5 mb-5" id="main-card">
+                        <Card.Body>
                             <Row>
                                 <Col>
-                                    <Tabs defaultActiveKey="upload">
-                                        <Tab eventKey="upload" title="Upload CSV">
-                                            <Row className="mt-5">
-                                                <Col>
-                                                    <Row>
-                                                        <Col xs md lg="1">
-                                                            {this.state.loading ?
-                                                                <Spinner animation="border" role="status" variant="primary" className="mt-5">
-                                                                    <span className="sr-only">Loading...</span>
-                                                                </Spinner> :
-                                                                null
-                                                            }
-                                                        </Col>
-                                                        <Col xs md lg="4">
-                                                            <CsvParse
-                                                                keys={keys}
-                                                                onDataUploaded={this.handleData}
-                                                                onError={this.handleError}
-                                                                    render={onChange => <input id="csv-parse" type="file"
-                                                                        accept=".csv"
-                                                                        pattern="^.+\.(xlsx|xls|csv)$"
-                                                                        onChange={onChange}
-                                                                />}                                                                
-                                                            />
-                                                            {this.state.countRecords && (
-                                                                <Button variant="danger" size="sm" className="mt-3" onClick={this.unloadCSV}>Unload CSV File</Button>
-                                                            )}
-                                                        </Col>
-                                                        {this.state.countRecords && (
-                                                            <Col>
-                                                                <Alert variant="success">Loaded: <b>{this.state.countRecords}</b> records.</Alert>
-                                                            </Col>
-                                                        )}
-                                                        {this.state.error && (
-                                                            <Col>
-                                                                <pre>{JSON.stringify(this.state.error, null, 2)}</pre>
-                                                            </Col>
-                                                        )}
-                                                        {this.state.unloaded && (
-                                                            <Col>
-                                                                <Alert variant="success">CSV file was removed.</Alert>
-                                                            </Col>    
-                                                        )}
-                                                    </Row>                                                                                                        
+                                    <Tabs defaultActiveKey="upload-data">
+                                        <Tab eventKey="upload-data" title="Upload CSV">
+                                            <Row className="mt-3">                                                
+
+                                                <Col xs md lg="1" className="float-right">
+                                                    {this.state.loading ?
+                                                        <Spinner animation="grow" role="status" variant="primary" className="mt-3">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </Spinner> :
+                                                        null
+                                                    }
                                                 </Col>
-                                            </Row>                                            
+
+                                                <Col xs md lg="5" className="float-left mt-3">
+                                                    <CsvParse
+                                                        keys={keys}
+                                                        onDataUploaded={this.handleData}
+                                                        onError={this.handleError}
+                                                            render={onChange => <input id="csv-parse" type="file"
+                                                                accept=".csv"
+                                                                pattern="^.+\.(xlsx|xls|csv)$"
+                                                                onChange={onChange}
+                                                        />}                                                                
+                                                    />
+                                                    {this.state.countRecords && (
+                                                        <Button variant="danger" size="sm" className="mt-3" onClick={this.unloadCSVAlert}>Unload CSV File</Button>
+                                                    )}
+                                                </Col>
+
+                                                <AlertNotification
+                                                    countRecords={this.state.countRecords}
+                                                    error={this.state.error}
+                                                    info={this.state.info}
+                                                    loading={this.state.loading}
+                                                    unloading={this.state.unloading}
+                                                    unloaded={this.state.unloaded}
+                                                />
+
+                                            </Row>                                                                                                                                               
                                         </Tab>
-                                        <Tab eventKey="table-data" title='Result Tables'>
+                                        <Tab eventKey="results-data" title='Result Tables' disabled={this.state.resultsDataTabBtn}>
                                             <Row className="mt-5">
                                                 <Col>
                                                     <h1><FontAwesomeIcon icon={faCalculator} /> <b>Sum</b></h1>
@@ -145,7 +170,7 @@ class Home extends Component {
                                                 </Col>
                                             </Row>                                            
                                         </Tab>
-                                        <Tab eventKey="all-data" title="Show All Data">
+                                        <Tab eventKey="all-data" title="Show All Data" disabled={this.state.allDataTabBtn}>
                                             <HousingDataTable housingData={this.state.data} />
                                         </Tab>
                                     </Tabs>
@@ -156,18 +181,17 @@ class Home extends Component {
                             <Card.Footer>
                                 <Row>
                                     <Col>
-                                        <Alert variant="secondary" className="float-right"><b>{this.state.countRecords}</b> total records.</Alert>
+                                        <Alert variant="secondary" className="float-right"><b>{this.state.countRecords.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</b> total records.</Alert>
                                     </Col>
                                 </Row>
                             </Card.Footer>
                         )}                                                                                  
                     </Card>
-                </Col>                
+                </Col>
             </Row>
         )
     }
 }
-
 /* Database Route
 const mapStateToProps = state => {
     const { visibilityFilter } = state;
