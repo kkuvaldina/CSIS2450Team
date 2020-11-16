@@ -43,29 +43,31 @@ class Home extends Component {
             unloaded: null,
             unloading: null,
             info: null,
-            resultsDataTabBtn: true,
-            allDataTabBtn: true,
+            resultsDataTabBtn: true,//button is disabled when true
+            allDataTabBtn: true,//button is disabled when true
             active: null
         }
     }
 
     componentDidMount = () => {
-        this.setState({ info: true })
+        //Beginning State for the User.
+        this.setState({ info: true })//Alert Information about the Program (Directions).
     }
 
     handleData = data => {
+        //Changes State Properties to Alert the User.
         this.setState({ loading: true, unloaded: false, info: false })
+        //Wait a second, then change state properties and Alert the User an Update.
         setTimeout(() => {
             this.setState({ data, countRecords: Object.keys(data).length, loading: false, resultsDataTabBtn: false, allDataTabBtn: false })
         }, 1000)
-        
     }
 
     handleError = error => {
-        this.setState({ error, loading: false })
+        this.setState({ error, loading: false })//Change to Error State...
     }
 
-    unloadCSVAlert = () => {
+    unloadCSVAlertNotification = () => {
         //Show the Unloading <Alert /> to the User.
         setTimeout(() => {
             this.setState({ unloading: true, info: null, countRecords: null, resultsDataTabBtn: true, allDataTabBtn: true })
@@ -79,11 +81,11 @@ class Home extends Component {
         //Switch from Unloaded to Complete.
         setTimeout(() => {
             this.setState({ unloaded: false })
-        }, 3000)
+        }, 3200)
         //Revert back to normal Settings.
         setTimeout(() => {
             this.setState({ info: true })
-        }, 3050)
+        }, 3299)
     }
     
     render() {
@@ -117,7 +119,6 @@ class Home extends Component {
                                     <Tabs defaultActiveKey="upload-data">
                                         <Tab eventKey="upload-data" title="Upload CSV">
                                             <Row className="mt-3">                                                
-
                                                 <Col xs md lg="1" className="float-right">
                                                     {this.state.loading ?
                                                         <Spinner animation="grow" role="status" variant="primary" className="mt-3">
@@ -126,20 +127,22 @@ class Home extends Component {
                                                         null
                                                     }
                                                 </Col>
-
-                                                <Col xs md lg="5" className="float-left mt-3">
+                                                <Col xs md lg="5" className="float-left pt-2">
                                                     <CsvParse
                                                         keys={keys}
                                                         onDataUploaded={this.handleData}
+                                                        className="main-card"
                                                         onError={this.handleError}
-                                                            render={onChange => <input id="csv-parse" type="file"
+                                                            render={onChange => <Button id="csv-parse" type="file"
                                                                 accept=".csv"
                                                                 pattern="^.+\.(xlsx|xls|csv)$"
                                                                 onChange={onChange}
+                                                                as="input"
+                                                                size="sm"
                                                         />}                                                                
                                                     />
                                                     {this.state.countRecords && (
-                                                        <Button variant="danger" size="sm" className="mt-3" onClick={this.unloadCSVAlert}>Unload CSV File</Button>
+                                                        <Button variant="danger" size="sm" className="mt-3" onClick={this.unloadCSVAlertNotification}>Unload CSV File</Button>
                                                     )}
                                                 </Col>
 
@@ -167,6 +170,8 @@ class Home extends Component {
                                                     <MinDataTable housingData={this.state.data} />
                                                     <h1><FontAwesomeIcon icon={faCalculator} /> <b>Max</b></h1>
                                                     <MaxDataTable housingData={this.state.data} />
+                                                    <h1><FontAwesomeIcon icon={faCalculator} /> <b>Half</b></h1>
+                                                    <HalfDataTable housingData={this.state.data} />
                                                 </Col>
                                             </Row>                                            
                                         </Tab>

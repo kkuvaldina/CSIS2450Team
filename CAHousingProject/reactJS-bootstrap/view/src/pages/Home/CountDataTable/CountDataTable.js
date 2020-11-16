@@ -1,6 +1,6 @@
 ﻿//React-Bootstrap
 import React, { Component } from 'react';
-import { Row, Col, Table, Alert } from 'react-bootstrap';
+import { Row, Col, Table} from 'react-bootstrap';
 //Redux Store Connector
 import { connect } from "react-redux";
 //Page Components
@@ -30,7 +30,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.ageTotal += parseFloat(this.props.housingData[i].housing_median_age);
             }
-            return this.state.ageTotal;
+            return this.state.ageTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -44,7 +44,7 @@ class CountDataTable extends Component {
                     this.state.bedsTotal += parseFloat(this.props.housingData[i].total_bedrooms);
                 }
             }
-            return this.state.bedsTotal;
+            return this.state.bedsTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -54,7 +54,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.holdsTotal += parseFloat(this.props.housingData[i].households);
             }
-            return this.state.holdsTotal;
+            return this.state.holdsTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -64,7 +64,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.incomeTotal += parseFloat(this.props.housingData[i].median_income);
             }            
-            return this.state.incomeTotal;
+            return this.state.incomeTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -74,7 +74,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.latitudeTotal += parseFloat(this.props.housingData[i].latitude);
             }
-            return this.state.latitudeTotal.toFixed(2);
+            return this.state.latitudeTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -84,7 +84,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.longitudeTotal += parseFloat(this.props.housingData[i].longitude);
             }
-            return this.state.longitudeTotal.toFixed(2);
+            return this.state.longitudeTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -94,7 +94,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.populationTotal += parseFloat(this.props.housingData[i].population);
             }
-            return this.state.populationTotal;
+            return this.state.populationTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -104,7 +104,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.roomsTotal += parseFloat(this.props.housingData[i].total_rooms);
             }
-            return this.state.roomsTotal;
+            return this.state.roomsTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }
@@ -114,7 +114,7 @@ class CountDataTable extends Component {
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
                 this.state.valueTotal += parseFloat(this.props.housingData[i].median_house_value);
             }
-            return this.state.valueTotal.toFixed(2);
+            return this.state.valueTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return null;
     }

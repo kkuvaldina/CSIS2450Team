@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 //Page Components
 import HalfDataRecord from "./HalfDataRecord/HalfDataRecord";
 
-
 class HalfDataTable extends Component {
 
     constructor(props) {
@@ -25,18 +24,19 @@ class HalfDataTable extends Component {
         }
     }
 
-    countRecords = () => {
-        if (this.props.housingData != null) {
-            return Object.keys(this.props.housingData).length;
-        }
-        return null
-    }
-
     ageHalf = () => {
         if (this.props.housingData != null) {
+            var count = 0;
             for (var i = 0; i <= this.props.housingData.length - 1; i++) {
-                this.state.ageTotal += parseFloat(this.props.housingData[i].housing_median_age);
-            }            
+                if (this.props.housingData[i].housing_median_age) {
+                    count++;
+                }
+                //this.state.ageTotal += parseFloat(this.props.housingData[i].housing_median_age);
+            }
+
+            console.log(count);
+            console.log(typeof count);
+
             return this.state.ageTotal / 2;
         }
         return null;
@@ -147,16 +147,15 @@ class HalfDataTable extends Component {
                         </thead>
                         <tbody>
                             <HalfDataRecord
-                                count={this.countRecords()}
-                                longitude={this.longitudeHalf()}
-                                latitude={this.latitudeHalf()}
+                                //longitude={this.longitudeHalf()}
+                                //latitude={this.latitudeHalf()}
                                 age={this.ageHalf()}
-                                rooms={this.roomsHalf()}
-                                bedrooms={this.bedsHalf()}
-                                holds={this.holdsHalf()}
-                                income={this.incomeHalf()}
-                                value={this.valueHalf()}
-                                population={this.populationHalf()}
+                                //rooms={this.roomsHalf()}
+                                //bedrooms={this.bedsHalf()}
+                                //holds={this.holdsHalf()}
+                                //income={this.incomeHalf()}
+                                //value={this.valueHalf()}
+                                //population={this.populationHalf()}
                             />
                         </tbody>
                     </Table>

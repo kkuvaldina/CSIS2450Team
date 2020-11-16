@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import { connect } from "react-redux";
 
-const HalfDataRecord = ({ longitude, age, rooms, bedrooms, population, holds, income, value, latitude, count }) => (
+const HalfDataRecord = ({ longitude, age, rooms, bedrooms, population, holds, income, value, latitude }) => (
     <tr>
         <td>
             {longitude}
